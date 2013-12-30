@@ -11,7 +11,8 @@ Create a config.json file:
     {
       "key": "consumer_key",
       "secret": "consumer_secret",
-      "watch": "rockets"
+      "watch": "rockets",
+      "ignore": "POSTING_USER_NAME"
     }
 
 Run:

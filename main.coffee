@@ -19,12 +19,14 @@ oa = new OAuth(
 	consumer.key,
 	consumer.secret,
 	"1.0",
-	"http://localhost:#{port}/auth/twitter/callback",
+	"http://aqnichol.com:#{port}/auth/twitter/callback",
 	"HMAC-SHA1"
 )
 
 app.use express.cookieParser()
 app.use express.session secret: 'foobar' + Math.random() + new Date()
+
+app.use express.basicAuth 'testUser', 'testPass'
 
 app.get '/auth/twitter', (req, res) ->
   oa.getOAuthRequestToken (error, token, tokenSecret, results) ->
@@ -58,7 +60,7 @@ app.get '/start', (req, res) ->
     consumer_secret: consumer.secret
     access_token: req.session.oauth.accessToken
     access_token_secret: req.session.oauth.accessTokenSecret
-  watcher = new Watcher session, consumer.watch
+  watcher = new Watcher session, consumer.watch, consumer.ignore
   watcher.on 'error', (error) ->
     watcher = null
     console.log error

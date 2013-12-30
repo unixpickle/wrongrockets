@@ -1,7 +1,7 @@
 {EventEmitter} = require 'events'
 
 class Watcher extends EventEmitter
-  constructor: (@twit, @user) ->
+  constructor: (@twit, @user, @ignore) ->
     @stream = null
   
   start: ->
@@ -19,6 +19,7 @@ class Watcher extends EventEmitter
   handleTweet: (tweet) ->
     # the tweet must include @user and must not *start* with it
     return if tweet.text.toLowerCase().indexOf('@' + @user.toLowerCase()) < 1
+    return if tweet.user.screen_name.toLowerCase() in @ignore
     
     # mentions the user, now post a reply
     statuses = [
