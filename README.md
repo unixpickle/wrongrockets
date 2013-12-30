@@ -12,7 +12,7 @@ Create a config.json file:
       "key": "consumer_key",
       "secret": "consumer_secret",
       "watch": "rockets",
-      "ignore": "POSTING_USER_NAME"
+      "ignore": ["POSTING_USER_NAME"]
     }
 
 Run:
