@@ -1,5 +1,5 @@
-if process.argv.length isnt 3
-  console.log 'Usage: coffee main.coffee <port>'
+if process.argv.length isnt 4
+  console.log 'Usage: coffee main.coffee <port> <hostname>'
   process.exit 1
 
 express = require 'express'
@@ -12,6 +12,7 @@ app = express()
 watcher = null
 consumer = JSON.parse fs.readFileSync 'config.json'
 throw 'invalid port number' if isNaN port = parseInt process.argv[2]
+hostname = process.argv[3]
 
 oa = new OAuth(
 	"https://api.twitter.com/oauth/request_token",
@@ -19,7 +20,7 @@ oa = new OAuth(
 	consumer.key,
 	consumer.secret,
 	"1.0",
-	"http://aqnichol.com:#{port}/auth/twitter/callback",
+	"http://#{hostname}:#{port}/auth/twitter/callback",
 	"HMAC-SHA1"
 )
 
